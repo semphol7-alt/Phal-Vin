@@ -155,7 +155,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
                   <div className="relative p-2.5 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center">
                     {customQrImage ? (
                       <img
-                        src="/722.jpg"
+                        src={customQrImage || "/722.jpg"}
                         alt="ABA Bank KHQR Code"
                         className="w-[190px] h-[190px] object-contain rounded-lg"
                       />
