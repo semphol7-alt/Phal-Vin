@@ -19,9 +19,9 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
   const groomGift = {
     nameKm: 'ស៊ឹម សុផល',
     nameEn: 'SIM SOPHAL',
-    bank: 'Canadia Bank (ធនាគារ កាណាឌីយ៉ា KHQR)',
-    accountNumber: '001 889 246 (USD / KHR)',
-    note: 'គណនីខាងកូនប្រុស',
+    bank: 'ABA Bank (ធនាគារ ABA KHQR)',
+    accountNumber: '009 754 059 / 019 812 970',
+    note: 'គណនីរួម',
   };
 
   const brideGift = {
@@ -29,7 +29,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
     nameEn: 'MAK KANHADAVIN',
     bank: 'ABA Bank (ធនាគារ ABA KHQR)',
     accountNumber: '009 754 059 / 019 812 970',
-    note: 'គណនីខាងកូនស្រី',
+    note: 'គណនីរួម',
   };
 
   const currentGift = activeSide === 'groom' ? groomGift : brideGift;
