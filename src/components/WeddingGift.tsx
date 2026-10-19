@@ -117,7 +117,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
                 <div className="bg-[#D3121B] px-4 py-2.5 flex items-center justify-between text-white">
                   <div className="flex items-center gap-1.5">
                     <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center font-bold text-xs">
-                      ៛
+                      $
                     </div>
                     <span className="font-royal font-black tracking-wider text-sm">KHQR</span>
                   </div>
@@ -148,7 +148,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
 
                   <p className="font-khmer text-[11px] text-slate-500 mt-2 font-medium">
                     {lang === 'km'
-                      ? 'ស្កេនជាមួយគ្រប់កម្មវិធីធនាគារ (Bakong / Canadia KHQR)'
+                      ? 'ស្កេនជាមួយគ្រប់កម្មវិធីធនាគារ (Bakong / ABA KHQR)'
                       : 'Scan with any banking app in Cambodia'}
                   </p>
 
