@@ -173,17 +173,15 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
                       : 'Scan with any banking app in Cambodia'}
                   </p>
 
-                  {/* Optional File Upload button */}
-                  <label className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-khmer cursor-pointer transition-colors border border-slate-300">
-                    <Upload className="w-3 h-3 text-slate-500" />
-                    <span>{customQrImage ? (lang === 'km' ? 'ប្តូររូបភាព QR ផ្សេង' : 'Change QR Image') : (lang === 'km' ? 'ផ្ទុកឡើងរូប QR ផ្ទាល់ខ្លួន' : 'Upload Custom QR')}</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageUpload}
-                      className="hidden"
-                    />
-                  </label>
+                  {/* Download QR Button */}
+                   <a
+                   href="/722.jpg"
+                   download="Wedding_KHQR_Code.jpg"
+                   className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-khmer font-medium cursor-pointer transition-colors border border-slate-300 shadow-sm"
+                   >
+                   <Download className="w-3.5 h-3.5 text-slate-600" />
+                   <span>{lang === 'km' ? 'ទាញយករូប QR Code' : 'Download QR Code'}</span>
+                   </a>
                 </div>
 
                 {/* Account Number Box */}
