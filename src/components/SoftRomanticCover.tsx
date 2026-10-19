@@ -16,7 +16,7 @@ export const SoftRomanticCover: React.FC<SoftRomanticCoverProps> = ({
 }) => {
   const handleDownloadWallpaper = () => {
     const link = document.createElement('a');
-    link.href = '/src/assets/images/khmer_wedding_cover_soft_1792413125230.jpg';
+    link.href = '/new2.jpg';
     link.download = 'Sophal_and_Mak_Kanhadavin_Wedding_Cover.jpg';
     document.body.appendChild(link);
     link.click();
@@ -35,7 +35,7 @@ export const SoftRomanticCover: React.FC<SoftRomanticCoverProps> = ({
         {/* Background Image: Classical white arched portal with white roses, orchids & green foliage */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/src/assets/images/khmer_wedding_cover_soft_1792413125230.jpg"
+            src="/new2.jpg"
             alt="Soft Romantic Khmer Wedding Cover"
             className="w-full h-full object-cover object-center"
           />
