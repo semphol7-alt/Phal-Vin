@@ -20,7 +20,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
     nameKm: 'ស៊ឹម សុផល',
     nameEn: 'SIM SOPHAL',
     bank: 'ABA Bank (ធនាគារ ABA KHQR)',
-    accountNumber: '009 754 059 / 019 812 970',
+    accountNumber: '009 754 059',
     note: 'គណនីរួម',
   };
 
@@ -28,7 +28,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
     nameKm: 'ម៉ាក់ កញ្ញាដាវីន',
     nameEn: 'MAK KANHADAVIN',
     bank: 'ABA Bank (ធនាគារ ABA KHQR)',
-    accountNumber: '009 754 059 / 019 812 970',
+    accountNumber: '019 812 970',
     note: 'គណនីរួម',
   };
 
@@ -107,7 +107,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
                 : 'text-[#D8CCA9] hover:text-[#FFFDF5]'
             }`}
           >
-            {lang === 'km' ? 'ខាងកូនប្រុស' : "Groom's Side"}
+            {lang === 'km' ? 'លេខគណនី ដុល្លា' : "Groom's Side"}
           </button>
 
           <button
@@ -118,7 +118,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
                 : 'text-[#D8CCA9] hover:text-[#FFFDF5]'
             }`}
           >
-            {lang === 'km' ? 'ខាងកូនស្រី' : "Bride's Side"}
+            {lang === 'km' ? 'លេខគណនី ខ្មែរ' : "Bride's Side"}
           </button>
         </div>
 
