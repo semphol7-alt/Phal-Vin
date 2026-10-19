@@ -277,7 +277,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
 
                   <p className="font-khmer text-[11px] text-slate-500 mt-2 font-medium">
                     {lang === 'km'
-                      ? 'ស្កេនជាមួយគ្រប់កម្មវិធីធនាគារ (Bakong / Canadia KHQR)'
+                      ? 'ស្កេនជាមួយគ្រប់កម្មវិធីធនាគារ (Bakong / ABA KHQR)'
                       : 'Scan with any banking app in Cambodia'}
                   </p>
 
