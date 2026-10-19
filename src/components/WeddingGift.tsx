@@ -16,20 +16,13 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
     return localStorage.getItem('khmer_wedding_custom_qr') || null;
   });
 
-  const groomGift = {
-    nameKm: 'ស៊ឹម សុផល',
-    nameEn: 'SIM SOPHAL',
-    bank: 'Canadia Bank (ធនាគារ កាណាឌីយ៉ា KHQR)',
-    accountNumber: '001 889 246 (USD / KHR)',
-    note: 'គណនីខាងកូនប្រុស',
-  };
-
   const brideGift = {
-    nameKm: 'ម៉ាក់ កញ្ញាដាវីន',
-    nameEn: 'MAK KANHADAVIN',
-    bank: 'Canadia Bank (ធនាគារ កាណាឌីយ៉ា KHQR)',
-    accountNumber: '002 678 912 (USD / KHR)',
-    note: 'គណនីខាងកូនស្រី',
+    nameKm: 'ម៉ាក់ កញ្ញាដាវីន ស៊ឹម សុផល',
+    nameEn: 'MAK KANHADAVIN SEM SOPHAL',
+    bank: 'ABA Bank (ធនាគារ ABA KHQR)',
+    accountNumber: '009 754 059 (USD)',
+    accountNumber: '019 812 970 (KHR)',
+    note: 'គណនីធនាគារ',
   };
 
   const currentGift = activeSide === 'groom' ? groomGift : brideGift;
@@ -93,11 +86,11 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
         {/* Explanation text about KHQR */}
         <p className="font-khmer text-xs text-[#E8DCC0] leading-relaxed text-center px-1 mb-5">
           {lang === 'km'
-            ? 'វត្តមានដ៏ថ្លៃថ្លារបស់លោកអ្នកគឺជាកាដូដ៏មានតម្លៃបំផុតសម្រាប់ពួកយើង។ ប្រសិនបើលោកអ្នកមានបំណងផ្ញើចំណងដៃអាពាហ៍ពិពាហ៍ លោកអ្នកអាចស្កេនតាមរយៈ Canadia Bank KHQR ខាងក្រោមបានដោយក្តីរីករាយ។'
-            : 'Your esteemed presence is our greatest honor. If you wish to bestow a wedding blessing gift, you may scan the official Canadia Bank KHQR code below.'}
+            ? 'វត្តមានដ៏ថ្លៃថ្លារបស់លោកអ្នកគឺជាកាដូដ៏មានតម្លៃបំផុតសម្រាប់ពួកយើង។ ប្រសិនបើលោកអ្នកមានបំណងផ្ញើចំណងដៃអាពាហ៍ពិពាហ៍ លោកអ្នកអាចស្កេនតាមរយៈ ABA Bank KHQR ខាងក្រោមបានដោយក្តីរីករាយ។'
+            : 'Your esteemed presence is our greatest honor. If you wish to bestow a wedding blessing gift, you may scan the official ABA Bank KHQR code below.'}
         </p>
 
-        {/* Two buttons: ខាងកូនប្រុស / ខាងកូនស្រី */}
+        {/* One buttons: QR Scan */}
         <div className="flex items-center p-1 rounded-xl bg-[#03241b] border border-[#D4AF37]/40 mb-6">
           <button
             onClick={() => setActiveSide('groom')}
@@ -122,7 +115,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
           </button>
         </div>
 
-        {/* KHQR Card Styled after Canadia Bank KHQR Standard */}
+        {/* KHQR Card Styled after ABA Bank KHQR Standard */}
         <div className="relative w-full flex flex-col items-center">
           <AnimatePresence mode="wait">
             <motion.div
@@ -134,7 +127,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
               className="w-full max-w-[310px]"
             >
               <div className="relative rounded-2xl overflow-hidden bg-white text-slate-900 border-2 border-[#D4AF37] shadow-[0_12px_30px_rgba(0,0,0,0.5)]">
-                {/* Red Bakong / Canadia Header Banner */}
+                {/* Red Bakong / ABA Header Banner */}
                 <div className="bg-[#D3121B] px-4 py-2.5 flex items-center justify-between text-white">
                   <div className="flex items-center gap-1.5">
                     <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center font-bold text-xs">
@@ -143,7 +136,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
                     <span className="font-royal font-black tracking-wider text-sm">KHQR</span>
                   </div>
                   <span className="text-[11px] font-khmer opacity-95 tracking-wide font-bold">
-                    CANADIA BANK · កាណាឌីយ៉ា
+                    ABA BANK · ABA
                   </span>
                 </div>
 
@@ -157,17 +150,17 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
                   </p>
                 </div>
 
-                {/* QR Code Container with Canadia Bank Logo */}
+                {/* QR Code Container with ABA Bank Logo */}
                 <div className="p-4 flex flex-col items-center justify-center">
                   <div className="relative p-2.5 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center">
                     {customQrImage ? (
                       <img
-                        src={customQrImage}
-                        alt="Canadia Bank KHQR Code"
+                        src="/722.jpg"
+                        alt="ABA Bank KHQR Code"
                         className="w-[190px] h-[190px] object-contain rounded-lg"
                       />
                     ) : (
-                      /* Authentic Canadia Bank KHQR SVG matching uploaded 722.jpg */
+                      /* Authentic ABA Bank KHQR SVG matching uploaded 722.jpg */
                       <svg width="190" height="190" viewBox="0 0 190 190" className="text-slate-900">
                         {/* Outer White Card Background */}
                         <rect width="190" height="190" fill="#FFFFFF" />
