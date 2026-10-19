@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Copy, Check, QrCode, Sparkles, Upload, Image as ImageIcon } from 'lucide-react';
+import { Copy, Check, QrCode, Sparkles, Download } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { KhmerOrnateDivider, KhmerCornerOrnament } from './GoldOrnament';
 import { Language } from '../types';
@@ -12,16 +12,13 @@ interface WeddingGiftProps {
 export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
   const [activeSide, setActiveSide] = useState<'groom' | 'bride'>('groom');
   const [copiedAccount, setCopiedAccount] = useState(false);
-  const [customQrImage, setCustomQrImage] = useState<string | null>(() => {
-    return localStorage.getItem('khmer_wedding_custom_qr') || null;
-  });
 
   const groomGift = {
     nameKm: 'ស៊ឹម សុផល',
     nameEn: 'SIM SOPHAL',
     bank: 'ABA Bank (ធនាគារ ABA KHQR)',
     accountNumber: '009 754 059',
-    note: 'គណនីរួម',
+    note: 'គណនីគណនីដុល្លា',
   };
 
   const brideGift = {
@@ -29,7 +26,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
     nameEn: 'MAK KANHADAVIN',
     bank: 'ABA Bank (ធនាគារ ABA KHQR)',
     accountNumber: '019 812 970',
-    note: 'គណនីរួម',
+    note: 'គណនីខ្មែរ',
   };
 
   const currentGift = activeSide === 'groom' ? groomGift : brideGift;
@@ -44,24 +41,6 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
       colors: ['#D4AF37', '#F5E084', '#0B4F3B', '#FFEAA0'],
     });
     setTimeout(() => setCopiedAccount(false), 2000);
-  };
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const result = event.target?.result as string;
-        setCustomQrImage(result);
-        localStorage.setItem('khmer_wedding_custom_qr', result);
-        confetti({
-          particleCount: 30,
-          spread: 50,
-          origin: { y: 0.7 },
-        });
-      };
-      reader.readAsDataURL(file);
-    }
   };
 
   return (
@@ -107,7 +86,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
                 : 'text-[#D8CCA9] hover:text-[#FFFDF5]'
             }`}
           >
-            {lang === 'km' ? 'លេខគណនី ដុល្លា' : "Groom's Side"}
+            {lang === 'km' ? 'គណនី ដុល្លា' : "Groom's Side"}
           </button>
 
           <button
@@ -118,7 +97,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
                 : 'text-[#D8CCA9] hover:text-[#FFFDF5]'
             }`}
           >
-            {lang === 'km' ? 'លេខគណនី ខ្មែរ' : "Bride's Side"}
+            {lang === 'km' ? 'គណនី ខ្មែរ' : "Bride's Side"}
           </button>
         </div>
 
@@ -161,7 +140,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
                 <div className="p-4 flex flex-col items-center justify-center">
                   <div className="relative p-2.5 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center">
                     <img
-                      src={customQrImage || "/722.jpg"}
+                      src="/722.jpg"
                       alt="ABA Bank KHQR Code"
                       className="w-[190px] h-[190px] object-contain rounded-lg"
                     />
@@ -169,19 +148,19 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
 
                   <p className="font-khmer text-[11px] text-slate-500 mt-2 font-medium">
                     {lang === 'km'
-                      ? 'ស្កេនជាមួយគ្រប់កម្មវិធីធនាគារ (Bakong / ABA KHQR)'
+                      ? 'ស្កេនជាមួយគ្រប់កម្មវិធីធនាគារ (Bakong / Canadia KHQR)'
                       : 'Scan with any banking app in Cambodia'}
                   </p>
 
                   {/* Download QR Button */}
-                   <a
-                   href="/722.jpg"
-                   download="Wedding_KHQR_Code.jpg"
-                   className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-khmer font-medium cursor-pointer transition-colors border border-slate-300 shadow-sm"
-                   >
-                   <Download className="w-3.5 h-3.5 text-slate-600" />
-                   <span>{lang === 'km' ? 'ទាញយករូប QR Code' : 'Download QR Code'}</span>
-                   </a>
+                  <a
+                    href="/722.jpg"
+                    download="Wedding_KHQR_Code.jpg"
+                    className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-khmer font-medium cursor-pointer transition-colors border border-slate-300 shadow-sm"
+                  >
+                    <Download className="w-3.5 h-3.5 text-slate-600" />
+                    <span>{lang === 'km' ? 'ទាញយករូប QR Code' : 'Download QR Code'}</span>
+                  </a>
                 </div>
 
                 {/* Account Number Box */}
