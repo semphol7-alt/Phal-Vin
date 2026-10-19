@@ -161,7 +161,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
                 <div className="p-4 flex flex-col items-center justify-center">
                   <div className="relative p-2.5 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center">
                     <img
-                      src="/722.jpg"
+                      src={customQrImage || "/722.jpg"}
                       alt="ABA Bank KHQR Code"
                       className="w-[190px] h-[190px] object-contain rounded-lg"
                     />
@@ -169,7 +169,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
 
                   <p className="font-khmer text-[11px] text-slate-500 mt-2 font-medium">
                     {lang === 'km'
-                      ? 'ស្កេនជាមួយគ្រប់កម្មវិធីធនាគារ (Bakong / Canadia KHQR)'
+                      ? 'ស្កេនជាមួយគ្រប់កម្មវិធីធនាគារ (Bakong / ABA KHQR)'
                       : 'Scan with any banking app in Cambodia'}
                   </p>
 
