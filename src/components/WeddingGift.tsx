@@ -16,13 +16,20 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
     return localStorage.getItem('khmer_wedding_custom_qr') || null;
   });
 
+  const groomGift = {
+    nameKm: 'ស៊ឹម សុផល',
+    nameEn: 'SIM SOPHAL',
+    bank: 'Canadia Bank (ធនាគារ កាណាឌីយ៉ា KHQR)',
+    accountNumber: '001 889 246 (USD / KHR)',
+    note: 'គណនីខាងកូនប្រុស',
+  };
+
   const brideGift = {
-    nameKm: 'ម៉ាក់ កញ្ញាដាវីន ស៊ឹម សុផល',
-    nameEn: 'MAK KANHADAVIN SEM SOPHAL',
+    nameKm: 'ម៉ាក់ កញ្ញាដាវីន',
+    nameEn: 'MAK KANHADAVIN',
     bank: 'ABA Bank (ធនាគារ ABA KHQR)',
-    accountNumber: '009 754 059 (USD)',
-    accountNumber: '019 812 970 (KHR)',
-    note: 'គណនីធនាគារ',
+    accountNumber: '009 754 059 / 019 812 970',
+    note: 'គណនីខាងកូនស្រី',
   };
 
   const currentGift = activeSide === 'groom' ? groomGift : brideGift;
@@ -150,138 +157,23 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
                   </p>
                 </div>
 
-                {/* QR Code Container with ABA Bank Logo */}
+                {/* QR Code Container with 722.jpg */}
                 <div className="p-4 flex flex-col items-center justify-center">
                   <div className="relative p-2.5 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center">
-                    {customQrImage ? (
-                      <img
-                        src={customQrImage || "/722.jpg"}
-                        alt="ABA Bank KHQR Code"
-                        className="w-[190px] h-[190px] object-contain rounded-lg"
-                      />
-                    ) : (
-                      /* Authentic ABA Bank KHQR SVG matching uploaded 722.jpg */
-                      <svg width="190" height="190" viewBox="0 0 190 190" className="text-slate-900">
-                        {/* Outer White Card Background */}
-                        <rect width="190" height="190" fill="#FFFFFF" />
-
-                        {/* Top Left Locator Eye */}
-                        <rect x="12" y="12" width="42" height="42" rx="4" fill="none" stroke="#000000" strokeWidth="6" />
-                        <rect x="23" y="23" width="20" height="20" rx="2" fill="#000000" />
-
-                        {/* Top Right Locator Eye */}
-                        <rect x="136" y="12" width="42" height="42" rx="4" fill="none" stroke="#000000" strokeWidth="6" />
-                        <rect x="147" y="23" width="20" height="20" rx="2" fill="#000000" />
-
-                        {/* Bottom Left Locator Eye */}
-                        <rect x="12" y="136" width="42" height="42" rx="4" fill="none" stroke="#000000" strokeWidth="6" />
-                        <rect x="23" y="147" width="20" height="20" rx="2" fill="#000000" />
-
-                        {/* Dense Authentic QR Data Modules */}
-                        <g fill="#000000">
-                          {/* Timing Lines */}
-                          <line x1="60" y1="30" x2="130" y2="30" stroke="#000" strokeWidth="4" strokeDasharray="4 4" />
-                          <line x1="30" y1="60" x2="30" y2="130" stroke="#000" strokeWidth="4" strokeDasharray="4 4" />
-
-                          {/* Data Blocks top region */}
-                          <rect x="62" y="14" width="7" height="7" />
-                          <rect x="76" y="14" width="7" height="14" />
-                          <rect x="90" y="14" width="14" height="7" />
-                          <rect x="111" y="14" width="7" height="7" />
-                          <rect x="125" y="14" width="7" height="7" />
-
-                          <rect x="62" y="35" width="14" height="7" />
-                          <rect x="83" y="35" width="7" height="14" />
-                          <rect x="97" y="35" width="14" height="7" />
-                          <rect x="118" y="35" width="14" height="7" />
-
-                          {/* Left data modules */}
-                          <rect x="14" y="62" width="7" height="7" />
-                          <rect x="28" y="62" width="7" height="14" />
-                          <rect x="42" y="62" width="14" height="7" />
-                          <rect x="14" y="76" width="14" height="7" />
-                          <rect x="35" y="76" width="7" height="14" />
-                          <rect x="49" y="76" width="7" height="7" />
-                          <rect x="14" y="97" width="7" height="14" />
-                          <rect x="28" y="97" width="14" height="7" />
-                          <rect x="49" y="97" width="7" height="14" />
-                          <rect x="14" y="118" width="14" height="7" />
-                          <rect x="35" y="118" width="14" height="7" />
-
-                          {/* Right data modules */}
-                          <rect x="136" y="62" width="14" height="7" />
-                          <rect x="157" y="62" width="7" height="14" />
-                          <rect x="171" y="62" width="7" height="7" />
-                          <rect x="143" y="76" width="7" height="14" />
-                          <rect x="164" y="76" width="14" height="7" />
-                          <rect x="136" y="97" width="14" height="7" />
-                          <rect x="157" y="97" width="7" height="14" />
-                          <rect x="171" y="97" width="7" height="14" />
-                          <rect x="143" y="118" width="7" height="7" />
-                          <rect x="157" y="118" width="14" height="7" />
-
-                          {/* Bottom modules */}
-                          <rect x="62" y="136" width="7" height="14" />
-                          <rect x="76" y="136" width="14" height="7" />
-                          <rect x="97" y="136" width="7" height="7" />
-                          <rect x="111" y="136" width="14" height="14" />
-                          <rect x="136" y="136" width="7" height="7" />
-                          <rect x="150" y="136" width="14" height="7" />
-                          <rect x="171" y="136" width="7" height="14" />
-
-                          <rect x="62" y="157" width="14" height="7" />
-                          <rect x="83" y="157" width="7" height="14" />
-                          <rect x="97" y="157" width="14" height="7" />
-                          <rect x="118" y="157" width="7" height="14" />
-                          <rect x="136" y="157" width="14" height="7" />
-                          <rect x="157" y="157" width="7" height="14" />
-
-                          <rect x="62" y="171" width="7" height="7" />
-                          <rect x="76" y="171" width="14" height="7" />
-                          <rect x="97" y="171" width="7" height="7" />
-                          <rect x="111" y="171" width="14" height="7" />
-                          <rect x="136" y="171" width="7" height="7" />
-                          <rect x="150" y="171" width="14" height="7" />
-                          <rect x="171" y="171" width="7" height="7" />
-
-                          {/* Mid quadrants surround logo */}
-                          <rect x="62" y="62" width="14" height="7" />
-                          <rect x="83" y="62" width="7" height="14" />
-                          <rect x="104" y="62" width="14" height="7" />
-                          <rect x="125" y="62" width="7" height="14" />
-                          <rect x="62" y="118" width="7" height="14" />
-                          <rect x="76" y="118" width="14" height="7" />
-                          <rect x="97" y="118" width="7" height="14" />
-                          <rect x="111" y="118" width="14" height="7" />
-                        </g>
-
-                        {/* Central Canadia Bank Emblem (Matching 722.jpg) */}
-                        <circle cx="95" cy="95" r="22" fill="#FFFFFF" />
-                        <circle cx="95" cy="95" r="19" fill="#D3121B" stroke="#FFFFFF" strokeWidth="2" />
-                        
-                        {/* Canadia Bank 8-point geometric star/flower icon */}
-                        <g transform="translate(95, 95) scale(0.9)">
-                          <polygon
-                            points="0,-12 3.5,-5 11,-8 6,-1 12,3 4.5,4 7,11 0,6 -7,11 -4.5,4 -12,3 -6,-1 -11,-8 -3.5,-5"
-                            fill="#FFFFFF"
-                          />
-                          <polygon
-                            points="0,-5 2.5,-2 4.5,0 2.5,2 0,5 -2.5,2 -4.5,0 -2.5,-2"
-                            fill="#D3121B"
-                          />
-                          <circle cx="0" cy="0" r="1.5" fill="#FFFFFF" />
-                        </g>
-                      </svg>
-                    )}
+                    <img
+                      src="/722.jpg"
+                      alt="ABA Bank KHQR Code"
+                      className="w-[190px] h-[190px] object-contain rounded-lg"
+                    />
                   </div>
 
                   <p className="font-khmer text-[11px] text-slate-500 mt-2 font-medium">
                     {lang === 'km'
-                      ? 'ស្កេនជាមួយគ្រប់កម្មវិធីធនាគារ (Bakong / ABA KHQR)'
+                      ? 'ស្កេនជាមួយគ្រប់កម្មវិធីធនាគារ (Bakong / Canadia KHQR)'
                       : 'Scan with any banking app in Cambodia'}
                   </p>
 
-                  {/* Optional File Upload button to swap / reload image */}
+                  {/* Optional File Upload button */}
                   <label className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-khmer cursor-pointer transition-colors border border-slate-300">
                     <Upload className="w-3 h-3 text-slate-500" />
                     <span>{customQrImage ? (lang === 'km' ? 'ប្តូររូបភាព QR ផ្សេង' : 'Change QR Image') : (lang === 'km' ? 'ផ្ទុកឡើងរូប QR ផ្ទាល់ខ្លួន' : 'Upload Custom QR')}</span>
