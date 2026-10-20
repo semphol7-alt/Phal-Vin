@@ -140,7 +140,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
                 <div className="p-4 flex flex-col items-center justify-center">
                   <div className="relative p-2.5 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center justify-center">
                     <img
-                      src="/QR.jpg"
+                      src="/733.jpg"
                       alt="ABA Bank KHQR Code"
                       className="w-[190px] h-[190px] object-contain rounded-lg"
                     />
