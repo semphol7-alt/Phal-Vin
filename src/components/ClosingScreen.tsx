@@ -72,7 +72,7 @@ export const ClosingScreen: React.FC<ClosingScreenProps> = ({ lang }) => {
         {/* Couple Names */}
         <div className="mt-5 text-center">
           <h3 className="font-khmer-title text-xl sm:text-2xl text-[#F9E79F] drop-shadow-sm">
-            ស៊ឹម សុផល &amp; ម៉ាក់ កញ្ញាដាវីន
+            សុផល &amp; កញ្ញាដាវីន
           </h3>
           <p className="font-cursive text-2xl text-[#FFF3C4] mt-0.5">
             Sem Sophal &amp; Mak Kanhadavin
