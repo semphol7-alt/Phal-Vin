@@ -30,7 +30,7 @@ export const KhmerAudioController: React.FC<AudioControllerProps> = ({
     // Load YouTube IFrame API if not already present
     if (!window.YT) {
       const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
+      tag.src = 'https://youtu.be/NaZznqme2hg?si=fdUL9VB8uSBp-NYL';
       const firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag?.parentNode?.insertBefore(tag, firstScriptTag);
     }
