@@ -67,7 +67,7 @@ export const TheEssentials: React.FC<TheEssentialsProps> = ({ lang }) => {
               {lang === 'km' ? 'កាលបរិច្ឆេទ & ពេលវេលា' : 'Date & Time'}
             </h3>
             <p className="font-khmer text-xs text-[#E8DCC0] mt-0.5">
-              {lang === 'km' ? 'ថ្ងៃអាទិត្យ ទី១៤ ខែមីនា ឆ្នាំ២០២៧' : 'Sunday, 14 March 2027'}
+              {lang === 'km' ? 'ថ្ងៃសៅរ៍ ទី២០ ខែមីនា ឆ្នាំ២០២៧' : 'Saturday, 20 March 2027'}
             </p>
             <div className="mt-1.5 flex flex-col gap-1 text-[11px] font-khmer text-[#D4AF37]">
               <span className="flex items-center gap-1.5">

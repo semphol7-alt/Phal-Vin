@@ -60,7 +60,7 @@ export const WeddingGift: React.FC<WeddingGiftProps> = ({ lang }) => {
         {/* Section Header */}
         <div className="text-center pt-2">
           <h2 className="font-khmer-title text-xl sm:text-2xl text-[#FFF3C4] drop-shadow">
-            {lang === 'km' ? 'អំណោយអាពាហ៍ពិពាហ៍' : 'WEDDING GIFT'}
+            {lang === 'km' ? 'កាដូអាពាហ៍ពិពាហ៍' : 'WEDDING GIFT'}
           </h2>
           <p className="font-royal text-[10px] tracking-[0.25em] text-[#D4AF37] uppercase mt-1">
             {lang === 'km' ? 'WEDDING GIFT' : 'KHQR BLESSING & CONTRIBUTIONS'}

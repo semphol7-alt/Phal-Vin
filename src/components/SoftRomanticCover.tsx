@@ -147,7 +147,7 @@ export const SoftRomanticCover: React.FC<SoftRomanticCoverProps> = ({
 
           {/* Wedding Date in Olive */}
           <p className="font-khmer text-xs text-[#415646] mt-2 font-semibold">
-            ថ្ងៃអាទិត្យ ទី១៤ ខែមីនា ឆ្នាំ២០២៧
+            ថ្ងៃសៅរ៍ ទី២០ ខែមីនា ឆ្នាំ២០២៧
           </p>
         </motion.div>
 

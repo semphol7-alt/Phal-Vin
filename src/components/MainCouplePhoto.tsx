@@ -136,10 +136,10 @@ export const MainCouplePhoto: React.FC<MainCouplePhotoProps> = ({ lang }) => {
         className="max-w-[340px] px-3 py-2.5 rounded-xl bg-[#063325]/75 border border-[#D4AF37]/35 shadow-inner"
       >
         <p className="font-khmer text-xs sm:text-sm text-[#FDF4D4] leading-relaxed font-medium">
-          ថ្ងៃអាទិត្យ ៧កើត ខែផល្គុន ឆ្នាំមមី អដ្ឋស័ក ពុទ្ធសករាជ ២៥៧០
+          ថ្ងៃសៅរ៍ ១៣កើត ខែផល្គុន ឆ្នាំមមី អដ្ឋស័ក ព.ស ២៥៧០
         </p>
         <p className="font-khmer text-sm sm:text-base text-[#FFE58F] font-bold mt-1">
-          ត្រូវនឹងថ្ងៃទី ១៤ ខែមីនា ឆ្នាំ ២០២៧
+          ត្រូវនឹងថ្ងៃទី ២០ ខែមីនា ឆ្នាំ ២០២៧
         </p>
         {lang === 'en' && (
           <p className="font-royal text-xs text-[#E5C365] mt-1 tracking-wider uppercase">
