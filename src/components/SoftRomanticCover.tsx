@@ -19,10 +19,17 @@ export const SoftRomanticCover: React.FC<SoftRomanticCoverProps> = ({
 
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
+      const savedName = localStorage.getItem('wedding_guest_name');
       const params = new URLSearchParams(window.location.search);
       const to = params.get('to') || params.get('guest') || params.get('name');
       if (to) {
-        setGuestName(decodeURIComponent(to));
+        try {
+          setGuestName(decodeURIComponent(to));
+        } catch {
+          setGuestName(to);
+        }
+      } else if (savedName) {
+        setGuestName(savedName);
       }
     }
   }, []);
@@ -30,13 +37,11 @@ export const SoftRomanticCover: React.FC<SoftRomanticCoverProps> = ({
   const updateGuestName = (newName: string) => {
     setGuestName(newName);
     if (typeof window !== 'undefined') {
-      const url = new URL(window.location.href);
       if (newName.trim()) {
-        url.searchParams.set('to', newName.trim());
+        localStorage.setItem('wedding_guest_name', newName.trim());
       } else {
-        url.searchParams.delete('to');
+        localStorage.removeItem('wedding_guest_name');
       }
-      window.history.replaceState({}, '', url.toString());
     }
   };
 

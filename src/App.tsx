@@ -88,16 +88,6 @@ export default function App() {
             transition={{ duration: 0.6 }}
             className="w-full min-h-screen flex flex-col items-center justify-center relative"
           >
-            {/* Quick switcher to Royal Envelope if desired */}
-            <div className="absolute top-4 right-4 z-30">
-              <button
-                onClick={() => setViewMode('envelope')}
-                className="px-3 py-1.5 rounded-full bg-[#03241B]/80 hover:bg-[#03241B] text-[#FFE58F] border border-[#D4AF37]/50 text-xs font-khmer shadow transition-all cursor-pointer backdrop-blur-md"
-              >
-                {lang === 'km' ? 'សំបុត្រមាស Royal Envelope' : 'Royal Envelope'}
-              </button>
-            </div>
-
             <SoftRomanticCover
               onOpenInvitation={handleOpenInvitation}
               onOpenShare={() => setIsShareOpen(true)}

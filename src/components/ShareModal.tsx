@@ -15,20 +15,18 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, lang })
   const [copiedMessage, setCopiedMessage] = useState(false);
   const [copiedLinkOnly, setCopiedLinkOnly] = useState(false);
 
-  // Get current app URL or pre-production URL
-  const baseUrl =
-    typeof window !== 'undefined' && window.location.href.startsWith('http')
-      ? window.location.href.split('?')[0]
-      : 'https://ais-pre-tb6dzknqzanf32fpt3cylb-404351727716.asia-northeast1.run.app';
+  // Use clean canonical URL without any ?to=%... encoding as requested
+  const canonicalDomain = 'https://phal-vin-u3l9.vercel.app';
+  const currentOrigin = typeof window !== 'undefined' ? window.location.origin : '';
+  const appUrl =
+    currentOrigin && !currentOrigin.includes('localhost') && !currentOrigin.includes('run.app')
+      ? currentOrigin
+      : canonicalDomain;
 
-  const appUrl = guestName.trim()
-    ? `${baseUrl}?to=${encodeURIComponent(guestName.trim())}`
-    : baseUrl;
-
-  // Formulate personalized invitation message exactly as requested
+  // Formulate personalized invitation message with clean link
   const personalizedMessage = guestName.trim()
-    ? `ជម្រាបសួរ ${guestName.trim()}! នាងខ្ញុំ/ខ្ញុំបាទសូមអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${appUrl}`
-    : `ជម្រាបសួរ [ឈ្មោះភ្ញៀវ]! នាងខ្ញុំ/ខ្ញុំបាទសូមអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${appUrl}`;
+    ? `ជម្រាបសួរ ${guestName.trim()}! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${appUrl}`
+    : `ជម្រាបសួរ [ឈ្មោះភ្ញៀវ]! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${appUrl}`;
 
   const handleCopyMessage = () => {
     navigator.clipboard.writeText(personalizedMessage);
@@ -56,8 +54,8 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, lang })
 
   const handleShareTelegram = () => {
     const text = guestName.trim()
-      ? `ជម្រាបសួរ ${guestName.trim()}! នាងខ្ញុំ/ខ្ញុំបាទសូមអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖`
-      : `ជម្រាបសួរ! នាងខ្ញុំ/ខ្ញុំបាទសូមអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖`;
+      ? `ជម្រាបសួរ ${guestName.trim()}! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖`
+      : `នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖`;
     const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(appUrl)}&text=${encodeURIComponent(text)}`;
     window.open(tgUrl, '_blank', 'noopener,noreferrer');
   };
