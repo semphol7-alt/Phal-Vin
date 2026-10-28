@@ -88,7 +88,7 @@ export const InvitationMessage: React.FC<InvitationMessageProps> = ({ lang }) =>
           <span className="font-royal text-[10px] tracking-widest text-[#E5C365] uppercase">
             {lang === 'km' ? 'កូនប្រុស & កូនស្រី' : 'Groom & Bride'}
           </span>
-          <h3 className="font-khmer-title text-2xl sm:text-3xl gold-text-gradient mt-1.5 drop-shadow">
+          <h3 className="font-khmer-title text-[15px] sm:text-lg md:text-xl gold-text-gradient mt-1.5 drop-shadow whitespace-nowrap">
             ស៊ឹម សុផល &amp; ម៉ាក់ កញ្ញាដាវីន
           </h3>
           <p className="font-cursive text-xl text-[#F5E084] mt-0.5">

@@ -14,6 +14,32 @@ export const SoftRomanticCover: React.FC<SoftRomanticCoverProps> = ({
   onOpenShare,
   lang,
 }) => {
+  const [guestName, setGuestName] = React.useState<string>('');
+  const [isEditingGuest, setIsEditingGuest] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const to = params.get('to') || params.get('guest') || params.get('name');
+      if (to) {
+        setGuestName(decodeURIComponent(to));
+      }
+    }
+  }, []);
+
+  const updateGuestName = (newName: string) => {
+    setGuestName(newName);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      if (newName.trim()) {
+        url.searchParams.set('to', newName.trim());
+      } else {
+        url.searchParams.delete('to');
+      }
+      window.history.replaceState({}, '', url.toString());
+    }
+  };
+
   const handleDownloadWallpaper = () => {
     const link = document.createElement('a');
     link.href = '/new2.jpg';
@@ -115,16 +141,16 @@ export const SoftRomanticCover: React.FC<SoftRomanticCoverProps> = ({
           </div>
 
           {/* Large centered stylized elegant Khmer names */}
-          <h1 className="font-khmer-title text-2xl sm:text-3xl text-[#2F4234] leading-tight drop-shadow tracking-wide">
+          <h1 className="font-khmer-title text-base sm:text-lg md:text-xl text-[#2F4234] leading-tight drop-shadow tracking-wide whitespace-nowrap">
             សុផល &amp; កញ្ញាដាវីន
           </h1>
 
           {/* Couple English Names */}
-          <div className="mt-2 flex flex-col items-center">
+          <div className="mt-1.5 flex flex-col items-center">
             <p className="font-cursive text-2xl sm:text-3xl text-[#415646] font-medium leading-none">
               Sophal &amp; Kanhadavin
             </p>
-            <span className="font-royal text-[11px] tracking-[0.2em] text-[#3E5242] font-bold uppercase mt-1">
+            <span className="font-royal text-[10px] tracking-[0.2em] text-[#3E5242] font-bold uppercase mt-1">
               SOPHAL &amp; KANHADAVIN
             </span>
           </div>
@@ -146,22 +172,63 @@ export const SoftRomanticCover: React.FC<SoftRomanticCoverProps> = ({
           </div>
 
           {/* Wedding Date in Olive */}
-          <p className="font-khmer text-xs text-[#415646] mt-2 font-semibold">
+          <p className="font-khmer text-xs text-[#415646] mt-1.5 font-semibold">
             ថ្ងៃសៅរ៍ ទី២០ ខែមីនា ឆ្នាំ២០២៧
           </p>
         </motion.div>
 
-        {/* BOTTOM ZONE: Bottom line in soft Khmer font: "សូមស្វាគមន៍អញ្ជើញ" */}
+        {/* BOTTOM ZONE: Moved upward to showcase Invited Guest Name & Action Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="relative z-20 pb-2 w-full flex flex-col items-center gap-3"
+          className="relative z-20 pb-2 w-full flex flex-col items-center gap-2.5"
         >
-          {/* Bottom line text in soft olive green */}
-          <p className="font-khmer text-sm sm:text-base text-[#3E5242] font-bold tracking-wide drop-shadow-sm">
-            សូមស្វាគមន៍អញ្ជើញ
-          </p>
+          {/* Guest Name & Salutation shifted upward onto the glowing arch portal */}
+          <div className="flex flex-col items-center -mt-3 sm:-mt-4 mb-0.5">
+            <p className="font-khmer text-xs sm:text-sm text-[#3E5242] font-semibold tracking-wide drop-shadow-sm">
+              {lang === 'km' ? 'សូមគោរពអញ្ជើញ' : 'Cordially Invited'}
+            </p>
+            {isEditingGuest ? (
+              <div className="mt-1 flex items-center gap-1.5 bg-white/95 rounded-full px-3 py-1 border border-[#3E5242] shadow-sm">
+                <input
+                  type="text"
+                  autoFocus
+                  value={guestName}
+                  onChange={(e) => updateGuestName(e.target.value)}
+                  onBlur={() => setIsEditingGuest(false)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') setIsEditingGuest(false);
+                  }}
+                  placeholder={lang === 'km' ? 'វាយឈ្មោះភ្ញៀវ...' : 'Enter guest name...'}
+                  className="text-xs font-khmer text-[#243828] bg-transparent outline-none w-36 text-center font-bold"
+                />
+                <button
+                  type="button"
+                  onClick={() => setIsEditingGuest(false)}
+                  className="text-[11px] font-khmer bg-[#3E5242] text-white px-2.5 py-0.5 rounded-full cursor-pointer hover:bg-[#2F4234]"
+                >
+                  {lang === 'km' ? 'យល់ព្រម' : 'Done'}
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setIsEditingGuest(true)}
+                title={lang === 'km' ? 'ចុចទីនេះដើម្បីប្តូរឈ្មោះភ្ញៀវ' : 'Click to personalize guest name'}
+                className="mt-1 px-4 py-1.5 rounded-full bg-white/90 hover:bg-white border border-[#4A5D4E]/35 shadow-sm backdrop-blur-sm max-w-[290px] flex items-center justify-center gap-1.5 cursor-pointer transition-all hover:scale-105"
+              >
+                <span className="text-[#4A5D4E] text-xs">❀</span>
+                <span className="font-khmer text-sm sm:text-base font-bold text-[#243828] truncate tracking-wide">
+                  {guestName ? guestName : (lang === 'km' ? 'ភ្ញៀវកិត្តិយស' : 'Honored Guest')}
+                </span>
+                <span className="text-[#4A5D4E] text-xs">❀</span>
+              </button>
+            )}
+            <span className="text-[10px] text-[#4A5D4E]/75 font-khmer mt-0.5">
+              {guestName ? '' : (lang === 'km' ? '(ចុចទីនេះដើម្បីប្តូរឈ្មោះភ្ញៀវ)' : '(tap to customize guest name)')}
+            </span>
+          </div>
 
           {/* Action Buttons: Open Invitation, Share & Download Wallpaper */}
           <div className="flex flex-col items-center gap-2 w-full max-w-[320px]">

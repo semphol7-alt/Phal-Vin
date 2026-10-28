@@ -16,13 +16,16 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, lang })
   const [copiedLinkOnly, setCopiedLinkOnly] = useState(false);
 
   // Get current app URL or pre-production URL
-  const appUrl =
+  const baseUrl =
     typeof window !== 'undefined' && window.location.href.startsWith('http')
-      ? window.location.href
+      ? window.location.href.split('?')[0]
       : 'https://ais-pre-tb6dzknqzanf32fpt3cylb-404351727716.asia-northeast1.run.app';
 
+  const appUrl = guestName.trim()
+    ? `${baseUrl}?to=${encodeURIComponent(guestName.trim())}`
+    : baseUrl;
+
   // Formulate personalized invitation message exactly as requested
-  const guestSalutation = guestName.trim() ? ` [${guestName.trim()}]` : '';
   const personalizedMessage = guestName.trim()
     ? `ជម្រាបសួរ ${guestName.trim()}! នាងខ្ញុំ/ខ្ញុំបាទសូមអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${appUrl}`
     : `ជម្រាបសួរ [ឈ្មោះភ្ញៀវ]! នាងខ្ញុំ/ខ្ញុំបាទសូមអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${appUrl}`;
