@@ -68,6 +68,44 @@ export default function App() {
     }
   };
 
+  // Sync guest name from URL on mount & whenever URL changes
+  useEffect(() => {
+    const parseUrlGuest = () => {
+      try {
+        const fullUrl = typeof window !== 'undefined' ? window.location.href : '';
+        if (!fullUrl) return;
+
+        // Catch ?to=..., &to=..., ?guest=..., ?name=...
+        const match = fullUrl.match(/[?&#](?:to|guest|name)=([^&#]+)/i);
+        if (match && match[1]) {
+          let raw = match[1];
+          let decoded = raw;
+          try {
+            decoded = decodeURIComponent(raw.replace(/\+/g, ' '));
+          } catch {
+            decoded = raw;
+          }
+          decoded = decoded.trim();
+          if (decoded) {
+            setGuestName(decoded);
+            localStorage.setItem('wedding_guest_name', decoded);
+            return;
+          }
+        }
+        const saved = localStorage.getItem('wedding_guest_name');
+        if (saved && !guestName) {
+          setGuestName(saved);
+        }
+      } catch (err) {
+        console.error('Error parsing guest name:', err);
+      }
+    };
+
+    parseUrlGuest();
+    window.addEventListener('popstate', parseUrlGuest);
+    return () => window.removeEventListener('popstate', parseUrlGuest);
+  }, []);
+
   // Handle Opening Invitation
   const handleOpenInvitation = () => {
     setViewMode('invitation');

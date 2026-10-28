@@ -22,13 +22,17 @@ export const ShareModal: React.FC<ShareModalProps> = ({
   const [copiedMessage, setCopiedMessage] = useState(false);
   const [copiedLinkOnly, setCopiedLinkOnly] = useState(false);
 
-  // Canonical clean public URL - NO =%E1% and NO ?to= in the link
-  const cleanUrl = 'https://phal-vin-u3l9.vercel.app';
+  // Canonical base URL
+  const baseUrl = 'https://phal-vin-u3l9.vercel.app';
+  
+  // Format guest link exactly like user requested: https://phal-vin-u3l9.vercel.app?to=semsophol
+  const guestParam = guestName.trim() ? encodeURI(guestName.trim()) : '';
+  const targetUrl = guestParam ? `${baseUrl}?to=${guestParam}` : baseUrl;
 
-  // Formulate personalized invitation message with 100% clean link
+  // Formulate personalized invitation message with guest link
   const personalizedMessage = guestName.trim()
-    ? `ជម្រាបសួរ ${guestName.trim()}! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${cleanUrl}`
-    : `ជម្រាបសួរ [ឈ្មោះភ្ញៀវ]! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${cleanUrl}`;
+    ? `ជម្រាបសួរ ${guestName.trim()}! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${targetUrl}`
+    : `ជម្រាបសួរ [ឈ្មោះភ្ញៀវ]! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${baseUrl}`;
 
   const handleCopyMessage = () => {
     navigator.clipboard.writeText(personalizedMessage);
@@ -43,7 +47,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
   };
 
   const handleCopyLinkOnly = () => {
-    navigator.clipboard.writeText(cleanUrl);
+    navigator.clipboard.writeText(targetUrl);
     setCopiedLinkOnly(true);
     confetti({
       particleCount: 30,
@@ -58,7 +62,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
     const text = guestName.trim()
       ? `ជម្រាបសួរ ${guestName.trim()}! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖`
       : `នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖`;
-    const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(cleanUrl)}&text=${encodeURIComponent(text)}`;
+    const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(targetUrl)}&text=${encodeURIComponent(text)}`;
     window.open(tgUrl, '_blank', 'noopener,noreferrer');
   };
 

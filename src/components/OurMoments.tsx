@@ -24,9 +24,9 @@ export const OurMoments: React.FC<OurMomentsProps> = ({ lang }) => {
       titleEn: 'Sacred Hair-Cutting Blessing Ceremony',
     },
     {
-      src: '/src/assets/images/khmer_couple_prewedding_1792411486018.jpg',
-      titleKm: 'រូបថត Pre-Wedding នៅប្រាសាទបុរាណ',
-      titleEn: 'Romantic Pre-Wedding at Ancient Temple',
+      src: '/723.jpg',
+      titleKm: 'រូបថតអនុស្សាវរីយ៍នៅប្រាសាទបុរាណ',
+      titleEn: 'Our Beautiful Moment at Ancient Temple',
     },
     {
       src: '/src/assets/images/khmer_jasmine_garland_1792411469754.jpg',
