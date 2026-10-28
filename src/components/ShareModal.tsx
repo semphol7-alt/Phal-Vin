@@ -22,16 +22,13 @@ export const ShareModal: React.FC<ShareModalProps> = ({
   const [copiedMessage, setCopiedMessage] = useState(false);
   const [copiedLinkOnly, setCopiedLinkOnly] = useState(false);
 
-  // Canonical base URL
-  const baseUrl = 'https://phal-vin-u3l9.vercel.app';
-  const targetUrl = guestName.trim()
-    ? `${baseUrl}?to=${encodeURIComponent(guestName.trim())}`
-    : baseUrl;
+  // Canonical clean public URL - NO =%E1% and NO ?to= in the link
+  const cleanUrl = 'https://phal-vin-u3l9.vercel.app';
 
-  // Formulate personalized invitation message
+  // Formulate personalized invitation message with 100% clean link
   const personalizedMessage = guestName.trim()
-    ? `ជម្រាបសួរ ${guestName.trim()}! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${targetUrl}`
-    : `ជម្រាបសួរ [ឈ្មោះភ្ញៀវ]! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${baseUrl}`;
+    ? `ជម្រាបសួរ ${guestName.trim()}! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${cleanUrl}`
+    : `ជម្រាបសួរ [ឈ្មោះភ្ញៀវ]! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${cleanUrl}`;
 
   const handleCopyMessage = () => {
     navigator.clipboard.writeText(personalizedMessage);
@@ -46,7 +43,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
   };
 
   const handleCopyLinkOnly = () => {
-    navigator.clipboard.writeText(baseUrl);
+    navigator.clipboard.writeText(cleanUrl);
     setCopiedLinkOnly(true);
     confetti({
       particleCount: 30,
@@ -61,7 +58,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
     const text = guestName.trim()
       ? `ជម្រាបសួរ ${guestName.trim()}! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖`
       : `នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖`;
-    const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(targetUrl)}&text=${encodeURIComponent(text)}`;
+    const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(cleanUrl)}&text=${encodeURIComponent(text)}`;
     window.open(tgUrl, '_blank', 'noopener,noreferrer');
   };
 

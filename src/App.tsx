@@ -58,11 +58,10 @@ export default function App() {
   });
 
   const handleUpdateGuestName = (newName: string) => {
-    const trimmed = newName.trim();
-    setGuestName(trimmed);
+    setGuestName(newName);
     if (typeof window !== 'undefined') {
-      if (trimmed) {
-        localStorage.setItem('wedding_guest_name', trimmed);
+      if (newName.trim()) {
+        localStorage.setItem('wedding_guest_name', newName);
       } else {
         localStorage.removeItem('wedding_guest_name');
       }
