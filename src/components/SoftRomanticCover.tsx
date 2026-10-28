@@ -6,44 +6,24 @@ import { Language } from '../types';
 interface SoftRomanticCoverProps {
   onOpenInvitation: () => void;
   onOpenShare?: () => void;
+  guestName: string;
+  onUpdateGuestName: (name: string) => void;
   lang: Language;
 }
 
 export const SoftRomanticCover: React.FC<SoftRomanticCoverProps> = ({
   onOpenInvitation,
   onOpenShare,
+  guestName,
+  onUpdateGuestName,
   lang,
 }) => {
-  const [guestName, setGuestName] = React.useState<string>('');
-  const [isEditingGuest, setIsEditingGuest] = React.useState<boolean>(false);
+  const [isEditModalOpen, setIsEditModalOpen] = React.useState(false);
+  const [inputVal, setInputVal] = React.useState(guestName);
 
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedName = localStorage.getItem('wedding_guest_name');
-      const params = new URLSearchParams(window.location.search);
-      const to = params.get('to') || params.get('guest') || params.get('name');
-      if (to) {
-        try {
-          setGuestName(decodeURIComponent(to));
-        } catch {
-          setGuestName(to);
-        }
-      } else if (savedName) {
-        setGuestName(savedName);
-      }
-    }
-  }, []);
-
-  const updateGuestName = (newName: string) => {
-    setGuestName(newName);
-    if (typeof window !== 'undefined') {
-      if (newName.trim()) {
-        localStorage.setItem('wedding_guest_name', newName.trim());
-      } else {
-        localStorage.removeItem('wedding_guest_name');
-      }
-    }
-  };
+    setInputVal(guestName);
+  }, [guestName]);
 
   const handleDownloadWallpaper = () => {
     const link = document.createElement('a');
@@ -194,42 +174,21 @@ export const SoftRomanticCover: React.FC<SoftRomanticCoverProps> = ({
             <p className="font-khmer text-xs sm:text-sm text-[#3E5242] font-semibold tracking-wide drop-shadow-sm">
               {lang === 'km' ? 'សូមគោរពអញ្ជើញ' : 'Cordially Invited'}
             </p>
-            {isEditingGuest ? (
-              <div className="mt-1 flex items-center gap-1.5 bg-white/95 rounded-full px-3 py-1 border border-[#3E5242] shadow-sm">
-                <input
-                  type="text"
-                  autoFocus
-                  value={guestName}
-                  onChange={(e) => updateGuestName(e.target.value)}
-                  onBlur={() => setIsEditingGuest(false)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') setIsEditingGuest(false);
-                  }}
-                  placeholder={lang === 'km' ? 'វាយឈ្មោះភ្ញៀវ...' : 'Enter guest name...'}
-                  className="text-xs font-khmer text-[#243828] bg-transparent outline-none w-36 text-center font-bold"
-                />
-                <button
-                  type="button"
-                  onClick={() => setIsEditingGuest(false)}
-                  className="text-[11px] font-khmer bg-[#3E5242] text-white px-2.5 py-0.5 rounded-full cursor-pointer hover:bg-[#2F4234]"
-                >
-                  {lang === 'km' ? 'យល់ព្រម' : 'Done'}
-                </button>
-              </div>
-            ) : (
-              <button
-                type="button"
-                onClick={() => setIsEditingGuest(true)}
-                title={lang === 'km' ? 'ចុចទីនេះដើម្បីប្តូរឈ្មោះភ្ញៀវ' : 'Click to personalize guest name'}
-                className="mt-1 px-4 py-1.5 rounded-full bg-white/90 hover:bg-white border border-[#4A5D4E]/35 shadow-sm backdrop-blur-sm max-w-[290px] flex items-center justify-center gap-1.5 cursor-pointer transition-all hover:scale-105"
-              >
-                <span className="text-[#4A5D4E] text-xs">❀</span>
-                <span className="font-khmer text-sm sm:text-base font-bold text-[#243828] truncate tracking-wide">
-                  {guestName ? guestName : (lang === 'km' ? 'ភ្ញៀវកិត្តិយស' : 'Honored Guest')}
-                </span>
-                <span className="text-[#4A5D4E] text-xs">❀</span>
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={() => {
+                setInputVal(guestName);
+                setIsEditModalOpen(true);
+              }}
+              title={lang === 'km' ? 'ចុចទីនេះដើម្បីប្តូរឈ្មោះភ្ញៀវ' : 'Click to personalize guest name'}
+              className="mt-1 px-4 py-1.5 rounded-full bg-white/95 hover:bg-white border border-[#4A5D4E]/40 shadow-md backdrop-blur-sm max-w-[290px] flex items-center justify-center gap-1.5 cursor-pointer transition-all hover:scale-105 active:scale-95"
+            >
+              <span className="text-[#4A5D4E] text-xs">❀</span>
+              <span className="font-khmer text-sm sm:text-base font-bold text-[#243828] truncate tracking-wide">
+                {guestName ? guestName : (lang === 'km' ? 'ភ្ញៀវកិត្តិយស' : 'Honored Guest')}
+              </span>
+              <span className="text-[#4A5D4E] text-xs">❀</span>
+            </button>
             <span className="text-[10px] text-[#4A5D4E]/75 font-khmer mt-0.5">
               {guestName ? '' : (lang === 'km' ? '(ចុចទីនេះដើម្បីប្តូរឈ្មោះភ្ញៀវ)' : '(tap to customize guest name)')}
             </span>
@@ -268,6 +227,61 @@ export const SoftRomanticCover: React.FC<SoftRomanticCoverProps> = ({
           </div>
         </motion.div>
       </motion.div>
+
+      {/* Modal to personalize Guest Name */}
+      {isEditModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-xs">
+          <div className="w-full max-w-[340px] rounded-2xl bg-[#FFFDF9] border border-[#3E5242]/30 p-5 shadow-2xl text-center">
+            <div className="w-8 h-8 rounded-full bg-[#EBF0EC] text-[#3E5242] mx-auto flex items-center justify-center mb-2 font-bold text-sm">
+              ❀
+            </div>
+            <h3 className="font-khmer text-base font-bold text-[#203626]">
+              {lang === 'km' ? 'បញ្ចូលឈ្មោះភ្ញៀវដែលបានហៅការ' : 'Personalize Guest Name'}
+            </h3>
+            <p className="font-khmer text-xs text-[#526856] mt-1 mb-3">
+              {lang === 'km' ? 'ឈ្មោះនេះនឹងបង្ហាញលើធៀបមង្គលការភ្លាមៗ' : 'This name will appear on the invitation card'}
+            </p>
+
+            <input
+              type="text"
+              autoFocus
+              value={inputVal}
+              onChange={(e) => setInputVal(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  onUpdateGuestName(inputVal);
+                  setIsEditModalOpen(false);
+                }
+              }}
+              placeholder={lang === 'km' ? 'ឧ. លោកពូ សុខា, បង វណ្ណា & ភរិយា...' : 'e.g. Uncle Sokha & Family'}
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[#BAC9BE] text-[#243828] font-khmer text-sm text-center focus:outline-none focus:border-[#3E5242] focus:ring-1 focus:ring-[#3E5242] bg-[#FAF9F5]"
+            />
+
+            <div className="grid grid-cols-2 gap-2 mt-4">
+              <button
+                type="button"
+                onClick={() => {
+                  onUpdateGuestName('');
+                  setIsEditModalOpen(false);
+                }}
+                className="py-2 px-3 rounded-xl border border-gray-300 text-gray-600 font-khmer text-xs font-semibold hover:bg-gray-100 cursor-pointer"
+              >
+                {lang === 'km' ? 'កំណត់ឡើងវិញ' : 'Reset'}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  onUpdateGuestName(inputVal);
+                  setIsEditModalOpen(false);
+                }}
+                className="py-2 px-3 rounded-xl bg-[#3E5242] text-white font-khmer text-xs font-bold hover:bg-[#2F4234] shadow cursor-pointer"
+              >
+                {lang === 'km' ? 'យល់ព្រម' : 'Save'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -7,22 +7,31 @@ import { Language } from '../types';
 interface ShareModalProps {
   isOpen: boolean;
   onClose: () => void;
+  guestName: string;
+  onUpdateGuestName: (name: string) => void;
   lang: Language;
 }
 
-export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, lang }) => {
-  const [guestName, setGuestName] = useState('');
+export const ShareModal: React.FC<ShareModalProps> = ({
+  isOpen,
+  onClose,
+  guestName,
+  onUpdateGuestName,
+  lang,
+}) => {
   const [copiedMessage, setCopiedMessage] = useState(false);
   const [copiedLinkOnly, setCopiedLinkOnly] = useState(false);
 
-  // Always use the public production domain https://phal-vin-u3l9.vercel.app
-  // This prevents Telegram and guests from hitting Vercel's preview deployment protection (Dashboard - Vercel)
-  const appUrl = 'https://phal-vin-u3l9.vercel.app';
+  // Canonical base URL
+  const baseUrl = 'https://phal-vin-u3l9.vercel.app';
+  const targetUrl = guestName.trim()
+    ? `${baseUrl}?to=${encodeURIComponent(guestName.trim())}`
+    : baseUrl;
 
-  // Formulate personalized invitation message with clean link
+  // Formulate personalized invitation message
   const personalizedMessage = guestName.trim()
-    ? `ជម្រាបសួរ ${guestName.trim()}! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${appUrl}`
-    : `ជម្រាបសួរ [ឈ្មោះភ្ញៀវ]! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${appUrl}`;
+    ? `ជម្រាបសួរ ${guestName.trim()}! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${targetUrl}`
+    : `ជម្រាបសួរ [ឈ្មោះភ្ញៀវ]! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖\n${baseUrl}`;
 
   const handleCopyMessage = () => {
     navigator.clipboard.writeText(personalizedMessage);
@@ -37,7 +46,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, lang })
   };
 
   const handleCopyLinkOnly = () => {
-    navigator.clipboard.writeText(appUrl);
+    navigator.clipboard.writeText(baseUrl);
     setCopiedLinkOnly(true);
     confetti({
       particleCount: 30,
@@ -52,7 +61,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, lang })
     const text = guestName.trim()
       ? `ជម្រាបសួរ ${guestName.trim()}! នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖`
       : `នាងខ្ញុំ/ខ្ញុំបាទសូមគោរពអញ្ជើញទៅចូលរួមពិធីអាពាហ៍ពិពាហ៍តាមរយៈធៀបឌីជីថលនេះ៖`;
-    const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(appUrl)}&text=${encodeURIComponent(text)}`;
+    const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(targetUrl)}&text=${encodeURIComponent(text)}`;
     window.open(tgUrl, '_blank', 'noopener,noreferrer');
   };
 
@@ -128,7 +137,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, lang })
                 សិរីមង្គលអាពាហ៍ពិពាហ៍ ស៊ឹម សុផល &amp; ម៉ាក់ កញ្ញាដាវីន
               </h4>
               <p className="font-khmer text-[11px] text-[#C5BBA2] mt-0.5 line-clamp-2 leading-relaxed">
-                សូមគោរពអញ្ជើញ ឯកឧត្តម លោកជំទាវ អ្នកឧកញ៉ា លោក លោកស្រី អ្នកនាងកញ្ញា ចូលរួមពិធីមង្គលការ ថ្ងៃអាទិត្យ ទី១៤ ខែមីនា ឆ្នាំ២០២៧ នៅភូមិស្នោរ សង្កាត់រកាក្នុង ក្រុងដូនកែវ ខេត្តតាកែវ
+                សូមគោរពអញ្ជើញ ចូលរួមពិធីមង្គលការ ថ្ងៃពុធ ទី២4 ខែមីនា ឆ្នាំ២០២៧ នៅភូមិស្នោរ សង្កាត់រកាក្នុង ក្រុងដូនកែវ ខេត្តតាកែវ
               </p>
             </div>
           </div>
@@ -141,7 +150,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, lang })
             <input
               type="text"
               value={guestName}
-              onChange={(e) => setGuestName(e.target.value)}
+              onChange={(e) => onUpdateGuestName(e.target.value)}
               placeholder={lang === 'km' ? 'ឧ. លោកពូ សុខា, បង វណ្ណា & ភរិយា...' : 'e.g., Uncle Sokha & Family'}
               className="w-full px-3.5 py-2.5 rounded-xl bg-[#021811] border border-[#D4AF37]/50 text-[#FFFDF5] placeholder-[#7E9689] font-khmer text-xs focus:outline-none focus:border-[#FFE58F]"
             />

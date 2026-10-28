@@ -25,6 +25,50 @@ export default function App() {
   const [hasStartedMusic, setHasStartedMusic] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
 
+  // Guest Name State with immediate URL & localStorage extraction
+  const [guestName, setGuestName] = useState<string>(() => {
+    if (typeof window === 'undefined') return '';
+    try {
+      // 1. Check URL parameters (?to=..., ?guest=..., ?name=...)
+      const url = new URL(window.location.href);
+      const paramTo = url.searchParams.get('to') || url.searchParams.get('guest') || url.searchParams.get('name');
+      if (paramTo) {
+        const decoded = decodeURIComponent(paramTo.replace(/\+/g, ' ')).trim();
+        if (decoded) {
+          localStorage.setItem('wedding_guest_name', decoded);
+          return decoded;
+        }
+      }
+      // 2. Check hash (if URL had #/?to=...)
+      if (window.location.hash) {
+        const hashMatch = window.location.hash.match(/[?&#](?:to|guest|name)=([^&#]+)/i);
+        if (hashMatch && hashMatch[1]) {
+          const decoded = decodeURIComponent(hashMatch[1].replace(/\+/g, ' ')).trim();
+          if (decoded) {
+            localStorage.setItem('wedding_guest_name', decoded);
+            return decoded;
+          }
+        }
+      }
+      // 3. Fallback to localStorage
+      return localStorage.getItem('wedding_guest_name') || '';
+    } catch {
+      return '';
+    }
+  });
+
+  const handleUpdateGuestName = (newName: string) => {
+    const trimmed = newName.trim();
+    setGuestName(trimmed);
+    if (typeof window !== 'undefined') {
+      if (trimmed) {
+        localStorage.setItem('wedding_guest_name', trimmed);
+      } else {
+        localStorage.removeItem('wedding_guest_name');
+      }
+    }
+  };
+
   // Handle Opening Invitation
   const handleOpenInvitation = () => {
     setViewMode('invitation');
@@ -89,6 +133,8 @@ export default function App() {
             className="w-full min-h-screen flex flex-col items-center justify-center relative"
           >
             <SoftRomanticCover
+              guestName={guestName}
+              onUpdateGuestName={handleUpdateGuestName}
               onOpenInvitation={handleOpenInvitation}
               onOpenShare={() => setIsShareOpen(true)}
               lang={lang}
@@ -207,6 +253,8 @@ export default function App() {
       <ShareModal
         isOpen={isShareOpen}
         onClose={() => setIsShareOpen(false)}
+        guestName={guestName}
+        onUpdateGuestName={handleUpdateGuestName}
         lang={lang}
       />
     </div>
