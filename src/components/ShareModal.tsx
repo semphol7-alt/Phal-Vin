@@ -15,13 +15,9 @@ export const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, lang })
   const [copiedMessage, setCopiedMessage] = useState(false);
   const [copiedLinkOnly, setCopiedLinkOnly] = useState(false);
 
-  // Use clean canonical URL without any ?to=%... encoding as requested
-  const canonicalDomain = 'https://phal-vin-u3l9.vercel.app';
-  const currentOrigin = typeof window !== 'undefined' ? window.location.origin : '';
-  const appUrl =
-    currentOrigin && !currentOrigin.includes('localhost') && !currentOrigin.includes('run.app')
-      ? currentOrigin
-      : canonicalDomain;
+  // Always use the public production domain https://phal-vin-u3l9.vercel.app
+  // This prevents Telegram and guests from hitting Vercel's preview deployment protection (Dashboard - Vercel)
+  const appUrl = 'https://phal-vin-u3l9.vercel.app';
 
   // Formulate personalized invitation message with clean link
   const personalizedMessage = guestName.trim()
